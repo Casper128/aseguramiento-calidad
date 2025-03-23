@@ -5,13 +5,26 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-env:
-  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-
 jobs:
   deploy-backend:
     runs-on: ubuntu-latest
     steps:
+      - name: Verificar credenciales
+        run: |
+          if [[ -z "${{ secrets.DOCKER_USERNAME }}" ]]; then
+            echo "::error::DOCKER_USERNAME no está definido en los Secrets"
+            exit 1
+          else
+            echo "::debug::DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
+          fi
+
+          if [[ -z "${{ secrets.DOCKER_PASSWORD }}" ]]; then
+            echo "::error::DOCKER_PASSWORD no está definido en los Secrets"
+            exit 1
+          else
+            echo "::debug::DOCKER_PASSWORD está definido correctamente"
+          fi
+
       - name: Checkout código
         uses: actions/checkout@v3
 
@@ -21,7 +34,7 @@ jobs:
       - name: Login a Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ env.DOCKER_USERNAME }}
+          username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Construir y publicar backend
@@ -30,7 +43,7 @@ jobs:
           context: ./calendar-backend
           push: true
           tags: |
-            ${{ env.DOCKER_USERNAME }}/calendar-backend:latest
-            ${{ env.DOCKER_USERNAME }}/calendar-backend:${{ github.sha }}
-          cache-from: type=registry,ref=${{ env.DOCKER_USERNAME }}/calendar-backend:latest
+            ${{ secrets.DOCKER_USERNAME }}/calendar-backend:latest
+            ${{ secrets.DOCKER_USERNAME }}/calendar-backend:${{ github.sha }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/calendar-backend:latest
           cache-to: type=inline
