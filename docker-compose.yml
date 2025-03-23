@@ -1,22 +1,41 @@
-version: '3'
+version: '3.8'
 
 services:
+  mongo:
+    image: mongo:6
+    container_name: calendar-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
   calendar-backend:
     image: bboycasper128/calendar-backend:latest
+    container_name: calendar-backend
     ports:
       - "4000:4000"
     environment:
       - PORT=4000
-      - DB_CNN=mongodb+srv://darwinosorio286:TKxscpQMCut1vrPJ@calendar-db.umlxspn.mongodb.net/calendar-db
+      - DB_CNN=mongodb://root:example@mongo:27017/calendar-db?authSource=admin
       - SECRET_JWT_SEED=Esto-Es-UnA-Palbr@_SecretA1234567
+    depends_on:
+      - mongo
     restart: always
 
   calendar-frontend:
     image: bboycasper128/calendar-frontend:latest
+    container_name: calendar-frontend
     ports:
-      - "4000:4000"
+      - "3000:80"
     environment:
-      - VITE_API_URL=http://localhost:4000/api
+      - VITE_API_URL=http://calendar-backend:4000/api
     depends_on:
       - calendar-backend
     restart: always
+
+volumes:
+  mongo_data:
