@@ -50,19 +50,21 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/calendar-backend:${{ github.sha }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/calendar-backend:latest
           cache-to: type=inline
-
   test-frontend:
     runs-on: ubuntu-latest
-    needs: deploy-backend
     steps:
       - name: Checkout código
         uses: actions/checkout@v3
+
+      - name: Listar archivos en calendar-frontend
+        working-directory: ./calendar-frontend
+        run: ls -la
 
       - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
+          # cache: 'yarn'   # Puedes comentarlo temporalmente
 
       - name: Instalar dependencias y ejecutar tests
         working-directory: ./calendar-frontend
