@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  calendar-backend:
+    image: darwinosorio286/calendar-backend:latest
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - DB_CNN=mongodb+srv://darwinosorio286:TKxscpQMCut1vrPJ@calendar-db.umlxspn.mongodb.net/calendar-db
+      - SECRET_JWT_SEED=Esto-Es-UnA-Palbr@_SecretA1234567
+    restart: always
+
+  calendar-frontend:
+    image: darwinosorio286/calendar-frontend:latest
+    ports:
+      - "80:80"
+    environment:
+      - VITE_API_URL=http://localhost:4000/api
+    depends_on:
+      - calendar-backend
+    restart: always
