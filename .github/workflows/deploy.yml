@@ -15,15 +15,18 @@ jobs:
             echo "::error::DOCKER_USERNAME no está definido en los Secrets"
             exit 1
           else
-            echo "::debug::DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
+            echo "DOCKER_USERNAME está definido (longitud: ${#DOCKER_USERNAME})"
           fi
 
           if [[ -z "${{ secrets.DOCKER_PASSWORD }}" ]]; then
             echo "::error::DOCKER_PASSWORD no está definido en los Secrets"
             exit 1
           else
-            echo "::debug::DOCKER_PASSWORD está definido correctamente"
+            echo "DOCKER_PASSWORD está definido (longitud: ${#DOCKER_PASSWORD})"
           fi
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Checkout código
         uses: actions/checkout@v3
