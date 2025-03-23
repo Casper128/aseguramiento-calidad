@@ -25,11 +25,11 @@ jobs:
           cache: 'npm'
 
       - name: Instalar dependencias
-        working-directory: ./10-calendar-frontend
+        working-directory: ./calendar-frontend
         run: npm ci
 
       - name: Ejecutar pruebas
-        working-directory: ./10-calendar-frontend
+        working-directory: ./calendar-frontend
         run: npm test
 
   deploy-backend:
@@ -80,7 +80,7 @@ jobs:
       - name: Construir y publicar frontend
         uses: docker/build-push-action@v3
         with:
-          context: ./10-calendar-frontend
+          context: ./calendar-frontend
           push: true
           tags: |
             ${{ env.DOCKER_USERNAME }}/calendar-frontend:latest
