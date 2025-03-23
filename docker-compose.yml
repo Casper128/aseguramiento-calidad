@@ -12,6 +12,8 @@ services:
     volumes:
       - mongo_data:/data/db
     restart: always
+    networks:
+      - app-network
 
   calendar-backend:
     image: bboycasper128/calendar-backend:latest
@@ -25,17 +27,23 @@ services:
     depends_on:
       - mongo
     restart: always
+    networks:
+      - app-network
 
   calendar-frontend:
     image: bboycasper128/calendar-frontend:latest
     container_name: calendar-frontend
     ports:
       - "3000:80"
-    environment:
-      - VITE_API_URL=http://calendar-backend:4000/api
     depends_on:
       - calendar-backend
     restart: always
+    networks:
+      - app-network
 
 volumes:
   mongo_data:
+
+networks:
+  app-network:
+    driver: bridge
