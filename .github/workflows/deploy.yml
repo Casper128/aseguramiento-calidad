@@ -9,6 +9,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Permit runner to access MongoDB Atlas
+        uses: textbook/atlas-ip@v1
+        with:
+          atlas-private-key: ${{ secrets.ATLAS_PRIVATE_KEY }}
+        atlas-public-key: ${{ secrets.ATLAS_PUBLIC_KEY }}
+        group-id: ${{ secrets.ATLAS_GROUP_ID }}
+        env:
+          ATLAS_PRIVATE_KEY: ${{ secrets.ATLAS_PRIVATE_KEY }}
+          ATLAS_PUBLIC_KEY: ${{ secrets.ATLAS_PUBLIC_KEY }}
+          ATLAS_GROUP_ID: ${{ secrets.ATLAS_GROUP_ID }}
+
       - name: Checkout código
         uses: actions/checkout@v3
 
