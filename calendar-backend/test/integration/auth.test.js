@@ -12,13 +12,20 @@ describe('Auth API', () => {
     let responseCreateUser;
 
     beforeAll(async () => {
-        await dbConnection();
-        // Crear un usuario solo una vez
-        responseCreateUser = await request(app)
-            .post('/api/auth/new')
-            .send(testUser);
-
+        try {
+            await dbConnection();
+            const response = await request(app)
+                .post('/api/auth/new')
+                .send(testUser);
+            // Verifica si la creación del usuario fue exitosa
+            expect(response.status).toBe(201);
+            responseCreateUser = response;
+        } catch (error) {
+            console.error('Error al conectar la base de datos o crear usuario', error);
+            throw error;
+        }
     });
+    
 
     describe('Login - POST /api/auth', () => {
         test('debe hacer login con credenciales correctas', async () => {
