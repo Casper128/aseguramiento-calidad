@@ -4,7 +4,7 @@ import { getEnvVariables } from '../../src/helpers';
 // Mock de la API para evitar llamadas reales en pruebas
 jest.mock('@/api/calendarApi', () => ({
     defaults: {
-        baseURL: 'http://localhost/api'  // Valor por defecto para la prueba
+        baseURL: 'http://localhost:4000/api'  // Valor por defecto para la prueba
     },
     get: jest.fn(() => Promise.resolve({
         config: {
