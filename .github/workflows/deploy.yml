@@ -6,6 +6,37 @@ on:
   workflow_dispatch:
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Instalar dependencias backend
+        working-directory: ./calendar-backend
+        run: npm install
+
+      - name: Instalar dependencias frontend
+        working-directory: ./calendar-frontend
+        run: npm install
+
+      - name: Ejecutar pruebas unitarias backend
+        working-directory: ./calendar-backend
+        run: npm run test:unit
+
+      - name: Ejecutar pruebas de integración backend
+        working-directory: ./calendar-backend
+        run: npm run test:integration
+
+      - name: Ejecutar pruebas frontend
+        working-directory: ./calendar-frontend
+        run: npm run test
+
   deploy-backend:
     runs-on: ubuntu-latest
     steps:

@@ -26,7 +26,11 @@ app.get('*', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 })
 
-// Escuchar peticiones
-app.listen(4000, () => {
-    console.log(`Servidor corriendo en puerto 4000`);
-});
+// Escuchar peticiones solo si no estamos en modo test
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(process.env.PORT || 4000, () => {
+        console.log(`Servidor corriendo en puerto ${process.env.PORT || 4000}`);
+    });
+}
+
+module.exports = app;

@@ -14,5 +14,18 @@ require('dotenv').config({
 
 // Realizar el mock completo de las variables de entorno
 jest.mock('./src/helpers/getEnvVariables', () => ({
-    getEnvVariables: () => ({ ...process.env })
+    getEnvVariables: () => ({ VITE_API_URL: 'http://localhost:4000/api' })
 }));
+
+// Configuración de Jest para React
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useState: jest.fn(),
+}));
+
+global.localStorage = {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+};
