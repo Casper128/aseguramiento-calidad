@@ -38,7 +38,9 @@ jobs:
 
       - name: Ejecutar pruebas unitarias backend
         working-directory: ./calendar-backend
-        run: npm run test
+        run: |
+          export SECRET_JWT_SEED=${{ secrets.SECRET_JWT_SEED }}
+          npm run test
 
       - name: Ejecutar pruebas frontend
         working-directory: ./calendar-frontend
