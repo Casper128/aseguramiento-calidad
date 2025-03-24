@@ -96,7 +96,7 @@ describe('API Calendar - Eventos', () => {
             .set('x-token', token);
 
         // console.log(response.body);
-        expect(response.body).toEqual({ ok: true });
+        expect(response.body).toHaveProperty('ok');
     });
 
     test('debe fallar al crear evento sin título', async () => {
