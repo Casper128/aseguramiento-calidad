@@ -22,7 +22,7 @@ services:
       - "4000:4000"
     environment:
       - PORT=4000
-      - DB_CNN=mongodb://root:example@mongo:27017/calendar-db?authSource=admin
+      - DB_CNN=mongodb+srv://darwinosorio286:1017230626@calendar-db.umlxspn.mongodb.net/?retryWrites=true&w=majority&appName=calendar-db
       - SECRET_JWT_SEED=Esto-Es-UnA-Palbr@_SecretA1234567
     depends_on:
       - mongo

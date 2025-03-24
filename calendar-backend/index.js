@@ -27,6 +27,6 @@ app.get('*', (req, res) => {
 })
 
 // Escuchar peticiones
-app.listen(process.env.PORT, () => {
-    console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
+app.listen(4000, () => {
+    console.log(`Servidor corriendo en puerto 4000`);
 });
