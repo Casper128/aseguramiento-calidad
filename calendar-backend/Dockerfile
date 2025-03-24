@@ -13,6 +13,10 @@ RUN npm install
 # Copiar código fuente
 COPY . .
 
+# Definir variables de entorno (opcional, pero mejor en docker-compose.yml)
+ENV PORT=4000
+ENV DB_CNN="mongodb+srv://darwinosorio286:1017230626@calendar-db.umlxspn.mongodb.net/?retryWrites=true&w=majority&appName=calendar-db"
+
 # Exponer puerto
 EXPOSE 4000
 
