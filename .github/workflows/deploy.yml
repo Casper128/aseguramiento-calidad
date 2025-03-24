@@ -27,11 +27,7 @@ jobs:
 
       - name: Ejecutar pruebas unitarias backend
         working-directory: ./calendar-backend
-        run: npm run test:unit
-
-      - name: Ejecutar pruebas de integración backend
-        working-directory: ./calendar-backend
-        run: npm run test:integration
+        run: npm run test
 
       - name: Ejecutar pruebas frontend
         working-directory: ./calendar-frontend
