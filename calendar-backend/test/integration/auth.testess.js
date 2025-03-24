@@ -109,7 +109,7 @@ describe('Auth API', () => {
             const loginResponse = await request(app)
                 .post('/api/auth')
                 .send({
-                    email: 'test1742789171926@test.com',
+                    email: 'test@test.com',
                     password: '123456'
                 });
             token = loginResponse.body.token;
