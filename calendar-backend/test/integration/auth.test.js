@@ -67,7 +67,7 @@ describe('Auth API', () => {
                 .get('/api/auth/renew')
                 .set('x-token', responseCreateUser?.body?.token)
             // .expect(200);
-            console.log(response.body);
+            // console.log(response.body);
             expect(response.body).toHaveProperty('ok', true);
             expect(response.body).toHaveProperty('token');
         });
