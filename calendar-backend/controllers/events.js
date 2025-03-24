@@ -6,6 +6,7 @@ const getEventos = async( req, res = response ) => {
         const eventos = await Evento.find()
                                   .populate('user', 'name');
 
+        // console.log(eventos);
         // Asegurarse de que todos los eventos tienen los campos necesarios
         const eventosFormateados = eventos.map(evento => ({
             id: evento._id,  // Asegurarse de que siempre haya un id
@@ -13,11 +14,12 @@ const getEventos = async( req, res = response ) => {
             start: evento.start,
             end: evento.end,
             notes: evento.notes || '',
-            user: {
-                _id: evento.user._id,
+            user: evento.user ? {
+                _id: evento.user._id,  // Acceder a _id solo si user no es null
                 name: evento.user.name
-            }
+            } : null // Si user es null, asignamos null
         }));
+        // console.log(eventosFormateados);
 
         res.json({
             ok: true,
