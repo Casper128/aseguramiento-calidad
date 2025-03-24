@@ -65,11 +65,9 @@ describe('Auth API', () => {
             console.log(responseCreateUser?.body);
             const response = await request(app)
                 .get('/api/auth/renew')
-                .set('x-token', responseCreateUser?.body?.token)
-            // .expect(200);
-            // console.log(response.body);
-            // expect(response?.body).toHaveProperty('ok', true);
-            // expect(response?.body).toHaveProperty('token');
+                .set('x-token', responseCreateUser?.body?.token);
+            expect(response?.body).toHaveProperty('ok', true);
+            expect(response?.body).toHaveProperty('token');
         });
 
         test('debe fallar sin token', async () => {
