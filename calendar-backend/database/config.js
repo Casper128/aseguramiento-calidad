@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dbConnection = async () => {
     try {
         // Conexión a la base de datos
-        await mongoose.connect(process.env.DB_CNN, {
+        await mongoose.connect(process.env.DB_CNN || "mongodb+srv://darwinosorio286:1017230626@calendar-db.umlxspn.mongodb.net/?retryWrites=true&w=majority&appName=calendar-db", {
             useNewUrlParser: true, 
             useUnifiedTopology: true,
         });
