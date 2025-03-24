@@ -76,3 +76,9 @@ jobs:
               ${{ secrets.DOCKER_USERNAME }}/calendar-frontend:${{ github.sha }}
             cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/calendar-frontend:latest
             cache-to: type=inline
+        - name: Setup Buildx manual
+          run: docker buildx create --use
+
+      - name: Build and push frontend manually
+          run: docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/calendar-frontend:latest --push .
+          working-directory: ./calendar-frontend
