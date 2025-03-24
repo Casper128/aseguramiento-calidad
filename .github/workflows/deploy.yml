@@ -35,6 +35,7 @@ jobs:
 
   deploy-backend:
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: Verificar credenciales
         run: |
