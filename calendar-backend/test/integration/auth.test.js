@@ -61,18 +61,18 @@ describe('Auth API', () => {
 
 
     describe('Renew Token - GET /api/auth/renew', () => {
-        console.log(responseCreateUser?.body);
         // test('debe renovar token con token válido', async () => {
-        //     const response = await request(app)
-        //         .get('/api/auth/renew')
-        //         .set('x-token', responseCreateUser.body.token)
-        //         // .expect(200);
-
-        //     expect(response.body).toHaveProperty('ok', true);
-        //     expect(response.body).toHaveProperty('token');
-        // });
-
+            //     const response = await request(app)
+            //         .get('/api/auth/renew')
+            //         .set('x-token', responseCreateUser.body.token)
+            //         // .expect(200);
+            
+            //     expect(response.body).toHaveProperty('ok', true);
+            //     expect(response.body).toHaveProperty('token');
+            // });
+            
         test('debe fallar sin token', async () => {
+            console.log(responseCreateUser?.body);
             const response = await request(app)
                 .get('/api/auth/renew')
                 .expect(401);
