@@ -61,7 +61,7 @@ describe('Auth API', () => {
 
 
     describe('Renew Token - GET /api/auth/renew', () => {
-        console.log(responseCreateUser.body);
+        console.log(responseCreateUser?.body);
         // test('debe renovar token con token válido', async () => {
         //     const response = await request(app)
         //         .get('/api/auth/renew')
