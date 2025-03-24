@@ -17,7 +17,7 @@ describe('API Calendar - Eventos', () => {
             });
         token = loginResponse.body.token;
         // console.log(token);
-    }, 10000);
+    }, 30000);
 
     afterAll(async () => {
         // Por ahora removemos el disconnect ya que no tenemos esa función

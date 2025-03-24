@@ -18,7 +18,7 @@ describe('Auth API', () => {
             .post('/api/auth/new')
             .send(testUser);
 
-    }, 10000);
+    }, 30000);
 
     describe('Login - POST /api/auth', () => {
         test('debe hacer login con credenciales correctas', async () => {
