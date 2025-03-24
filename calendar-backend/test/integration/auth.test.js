@@ -17,7 +17,6 @@ describe('Auth API', () => {
         responseCreateUser = await request(app)
             .post('/api/auth/new')
             .send(testUser);
-
     }, 30000);
 
     describe('Login - POST /api/auth', () => {
@@ -61,32 +60,33 @@ describe('Auth API', () => {
     });
 
 
-    // describe('Renew Token - GET /api/auth/renew', () => {
-    //     test('debe renovar token con token válido', async () => {
-    //         const response = await request(app)
-    //             .get('/api/auth/renew')
-    //             .set('x-token', responseCreateUser.body.token)
-    //             // .expect(200);
+    describe('Renew Token - GET /api/auth/renew', () => {
+        console.log(responseCreateUser.body);
+        // test('debe renovar token con token válido', async () => {
+        //     const response = await request(app)
+        //         .get('/api/auth/renew')
+        //         .set('x-token', responseCreateUser.body.token)
+        //         // .expect(200);
 
-    //         expect(response.body).toHaveProperty('ok', true);
-    //         expect(response.body).toHaveProperty('token');
-    //     });
+        //     expect(response.body).toHaveProperty('ok', true);
+        //     expect(response.body).toHaveProperty('token');
+        // });
 
-    //     test('debe fallar sin token', async () => {
-    //         const response = await request(app)
-    //             .get('/api/auth/renew')
-    //             .expect(401);
+        test('debe fallar sin token', async () => {
+            const response = await request(app)
+                .get('/api/auth/renew')
+                .expect(401);
 
-    //         expect(response.body).toHaveProperty('msg', 'No hay token en la petición');
-    //     });
+            expect(response.body).toHaveProperty('msg', 'No hay token en la petición');
+        });
 
-    //     test('debe fallar con token inválido', async () => {
-    //         const response = await request(app)
-    //             .get('/api/auth/renew')
-    //             .set('x-token', 'token-invalido')
-    //             .expect(401);
+        test('debe fallar con token inválido', async () => {
+            const response = await request(app)
+                .get('/api/auth/renew')
+                .set('x-token', 'token-invalido')
+                .expect(401);
 
-    //         expect(response.body).toHaveProperty('msg', 'Token no válido');
-    //     });
-    // });
+            expect(response.body).toHaveProperty('msg', 'Token no válido');
+        });
+    });
 });
